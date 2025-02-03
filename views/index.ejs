@@ -12,5 +12,28 @@
         url: <input type="text" name="url" id="">
         <button type="submit">generate</button>
     </form>
+    <% if (locals.id) { %>
+     <a href="http://127.0.0.1:8000/user/<%= id %>">click</a>
+    <% } %>
+<% if (locals.allurls) { %>
+    <% let counter = 1; %>
+    <% for (const item of allurls) { %>
+        <table class="table table-dark">
+            <thead>
+                <th>Sr.No.</th>
+                <th>Generated url</th>
+                <th>Clicks</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><%= counter %></td>
+                    <td><a href="https://127.0.0.1:8000/user/<%= item.shortid %>">visit</a></td>
+                    <td><%= item.requests.length %></td>
+                    <% counter++; %>
+                </tr>
+            </tbody>
+        </table>
+    <% } %>
+<% } %>
 </body>
 </html>

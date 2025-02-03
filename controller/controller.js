@@ -6,23 +6,26 @@ async function urlpost(req, res) {
     if(!url){
         return res.json({msg:'oye url peyoo peyjec...'})
     }
-    console.log(url)
     id = nanoid(6)
-    newurl = await allmodels.create({
-        urlgenerated : url,
-        shortid : id,
-    })
-    newurl.requests.push({ timestamp: Date.now() })
-    await newurl.save()
-    return res.json({msg:`You'r shord id is here: ${id}`})
+    // newurl = await allmodels.create({
+    //     urlgenerated : url,
+    //     shortid : id,
+    // })
+    // newurl.requests.push({ timestamp: Date.now() })
+    // await newurl.save()
+
+    allurls = await allmodels.find({})
+    return res.render('index', {id:id, allurls:allurls})
 }
 
 async function shorturl(req, res) {
+    console.log('haa edhr tk too phnch gya he...')
     shortid = req.params.id
     the_url = await allmodels.findOne({'shortid':shortid})
-    console.log(the_url.urlgenerated)
     if(the_url){
-        return res.redirect('https://'+the_url.urlgenerated)
+        the_url.requests.push({ timestamp: Date.now() })
+        await the_url.save()
+        return res.redirect('http://'+the_url.urlgenerated)
     }else{return res.json({msg:'not good'})}
 }
 
