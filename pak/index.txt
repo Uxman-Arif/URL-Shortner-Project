@@ -1,0 +1,2 @@
+I am Usman Arif who is writing something in this file via vim in windows.
+The version of windows in my laptop is currently is 10. So i am the single person in my globalarea who is supporting that.
